@@ -15,9 +15,6 @@ public:
 	// Sets default values for this actor's properties
 	AFPSObjectiveActor();
 
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
 	virtual void NotifyActorBeginOverlap(AActor* OtherActor) override;
 
 protected:
