@@ -2,7 +2,7 @@
 
 
 #include "FPSAIGuard.h"
-
+#include "FPSGameMode.h"
 #include "DrawDebugHelpers.h"
 #include "Perception/PawnSensingComponent.h"
 
@@ -52,6 +52,11 @@ void AFPSAIGuard::OnPawnSeen(APawn* SeenPawn)
 	if(!IsValid(SeenPawn))
 	{
 		return;
+	}
+	AFPSGameMode* GM = Cast<AFPSGameMode>(GetWorld()->GetAuthGameMode());
+	if(IsValid(GM))
+	{
+		GM->CompleteMission(SeenPawn, false);
 	}
 	DrawDebugSphere(GetWorld(), SeenPawn->GetActorLocation(), 32.f, 12, FColor::Red, false, 10.f);
 }

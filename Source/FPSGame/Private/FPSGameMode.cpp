@@ -16,7 +16,7 @@ AFPSGameMode::AFPSGameMode()
 	HUDClass = AFPSHUD::StaticClass();
 }
 
-void AFPSGameMode::CompleteMission(APawn* InstigatorPawn)
+void AFPSGameMode::CompleteMission(APawn* InstigatorPawn, bool bMissionSuccess)
 {
 	if(IsValid(InstigatorPawn))
 	{
@@ -42,5 +42,5 @@ void AFPSGameMode::CompleteMission(APawn* InstigatorPawn)
 			UE_LOG(LogTemp, Warning, TEXT("Spectating Viewpoint Class is null, please update gamemode class with a valid class. Cannot change spectating view target on mission complete "));
 		}
 	}
-	OnMissionCompleted(InstigatorPawn);
+	OnMissionCompleted(InstigatorPawn, bMissionSuccess);
 }
