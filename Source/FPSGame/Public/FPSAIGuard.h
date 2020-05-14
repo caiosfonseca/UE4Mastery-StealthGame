@@ -55,6 +55,15 @@ protected:
 	UFUNCTION(BlueprintImplementableEvent, Category = "AI")
 	void OnStateChanged(EAIState NewState);
 
+	UPROPERTY(EditInstanceOnly, Category = "AI")
+	bool bPatrol;
+
+	UPROPERTY(EditInstanceOnly, Category = "AI", meta = (EditCondition = "bPatrol"))
+		TArray<AActor*> PatrolPoints;
+
+	AActor* CurrentPatrolPoint;
+
+	void MoveToNextPatrolPoint();
 };
 
 
