@@ -4,6 +4,7 @@
 #include "FPSHUD.h"
 #include "FPSCharacter.h"
 #include "FPSGameState.h"
+#include "FPSPlayerController.h"
 #include "Kismet/GameplayStatics.h"
 #include "UObject/ConstructorHelpers.h"
 
@@ -14,6 +15,7 @@ AFPSGameMode::AFPSGameMode()
 	DefaultPawnClass = PlayerPawnClassFinder.Class;
 
 	GameStateClass = AFPSGameState::StaticClass();
+	PlayerControllerClass = AFPSPlayerController::StaticClass();
 	// use our custom HUD class
 	HUDClass = AFPSHUD::StaticClass();
 }
@@ -27,11 +29,10 @@ void AFPSGameMode::CompleteMission(APawn* InstigatorPawn, bool bMissionSuccess)
 		{
 			AActor* NewViewTarget = UGameplayStatics::GetActorOfClass(this, SpectatingViewpointClass);
 
-			// cHange viewtarget if any valid actor found
-			if(IsValid(NewViewTarget))
+
+			for (FConstPlayerControllerIterator It = GetWorld()->GetPlayerControllerIterator(); It; It++)
 			{
-				APlayerController* PC = Cast<APlayerController>(InstigatorPawn->GetController());
-		
+				APlayerController* PC = Cast<APlayerController>(It->Get());
 				if(IsValid(PC))
 				{
 					PC->SetViewTargetWithBlend(NewViewTarget, 0.5f, EViewTargetBlendFunction::VTBlend_Cubic);
